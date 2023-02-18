@@ -37,5 +37,6 @@ public class Player : MonoBehaviour
     {
         //Движение. К текущем положению 
         rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
+        //rb.AddForce(movement * moveSpeed * Time.fixedDeltaTime, ForceMode2D.Force);
     }
 }
