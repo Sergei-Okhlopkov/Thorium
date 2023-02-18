@@ -194,21 +194,9 @@ CompositeCollider2D:
   m_EdgeRadius: 0
   m_ColliderPaths:
   - m_Collider: {fileID: 22913047}
-    m_ColliderPaths:
-    - - X: -20000000
-        Y: 30000000
-      - X: -30000000
-        Y: 30000000
-      - X: -30000000
-        Y: 0
-      - X: -20000000
-        Y: 0
+    m_ColliderPaths: []
   m_CompositePaths:
-    m_Paths:
-    - - {x: -2.0000293, y: 0}
-      - {x: -2.0000293, y: 3}
-      - {x: -3, y: 2.999971}
-      - {x: -2.999971, y: 0}
+    m_Paths: []
   m_VertexDistance: 0.0005
   m_OffsetDistance: 0.00005
 --- !u!50 &22913049
