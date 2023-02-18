@@ -1,20 +1,30 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
+    [SerializeField]
+    private bool smoothCam = false;
+    [SerializeField]
+    private Transform target;
+    [SerializeField]
+    private float smoothSpeed;
+    [SerializeField]
+    private Vector3 offset;
 
-    public Transform target;
-
-    public float smoothSpeed;
-
-    public Vector3 offset;
-
-    void LateUpdate()
+    private void LateUpdate()
     {
-        Vector3 desiredPosition = target.position + offset;
-        Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed * Time.deltaTime);
-        transform.position = smoothedPosition;
+        if (smoothCam)
+        {
+            //camera follows player with duration
+            Vector3 desiredPosition = target.position + offset;
+            Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed * Time.deltaTime);
+            transform.position = smoothedPosition;
+        }
+        else
+        {
+            //camera follows player in the same time
+            transform.position = target.position + offset;
+        }
+        
     }
 }

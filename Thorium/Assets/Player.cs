@@ -1,14 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    
-    public float moveSpeed = 5f;
-    public Rigidbody2D rb;
-    public Animator animator;
-
+    [SerializeField]
+    private float moveSpeed = 5f;
+    private Rigidbody2D rb;
+    private Animator animator;
     private Vector2 movement;
 
     #region Variables from Unity
@@ -18,11 +15,12 @@ public class Player : MonoBehaviour
     private string speed = "Speed";
 
     #endregion
-    // Start is called before the first frame update
-    //void Start()
-    //{
 
-    //}
+    private void Awake()
+    {
+        rb = gameObject.GetComponent<Rigidbody2D>();
+        animator = gameObject.GetComponent<Animator>();
+    }
 
     // Update is called once per frame
     void Update()
