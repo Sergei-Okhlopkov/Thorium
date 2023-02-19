@@ -40,6 +40,7 @@ public class Player : MonoBehaviour
     void FixedUpdate()
     {
         rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
+        //rb.AddForce(movement * moveSpeed * Time.fixedDeltaTime, ForceMode2D.Force);
     }
 
     private void ThrowStone()
