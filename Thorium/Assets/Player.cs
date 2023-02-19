@@ -23,7 +23,7 @@ public class Player : MonoBehaviour
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
         animator = gameObject.GetComponent<Animator>();
-        throwingStone = transform.Find("Stone").gameObject;
+        throwingStone = transform.Find("ThrowingStone").gameObject;
     }
 
     // Update is called once per frame

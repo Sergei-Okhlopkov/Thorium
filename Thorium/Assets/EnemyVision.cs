@@ -63,17 +63,20 @@ public class EnemyVision : MonoBehaviour
             Vector2 directionToTarget = (target.position - transform.position).normalized;
             DirectionVector = directionToTarget;
 
-            if (Vector2.Angle(transform.right, directionToTarget) < angle / 2)
+            if (Vector2.Angle(transform.right, DirectionVector) < angle / 2)
             {
                 float distanceToTarget = Vector2.Distance(transform.position, target.position);
 
-                if (!Physics.Raycast(transform.position, directionToTarget, distanceToTarget, obstaclesMask))
+                if (!Physics2D.Raycast(transform.position, DirectionVector, radius, obstaclesMask))
+                {
                     CanSeePlayer = true;
+                } 
                 else
+                { 
                     CanSeePlayer = false;
+                }
             }
-            else
-                CanSeePlayer = false;
+            else CanSeePlayer = false;
         }
         else if (CanSeePlayer)
             CanSeePlayer = false;
