@@ -7,7 +7,7 @@ public class EnemyCatchPlayer : MonoBehaviour
     private EnemyVision enemyVision;
     private float moveSpeed = 4f;
     private Rigidbody2D rb;
-    private Vector2 movement;
+    
     private Animator animator;
 
     private string horizontal = "Horizontal";
@@ -25,16 +25,11 @@ public class EnemyCatchPlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //if (enemyVision.CanSeePlayer)
-        //{
-            animator.SetFloat(horizontal, enemyVision.DirectionVector.x);
-            animator.SetFloat(vertical, enemyVision.DirectionVector.y);
-            animator.SetFloat(speed, enemyVision.DirectionVector.magnitude);
-            
-       // }
+
+        animator.SetFloat(horizontal, enemyVision.DirectionVector.x);
+        animator.SetFloat(vertical, enemyVision.DirectionVector.y);
+        animator.SetFloat(speed, enemyVision.DirectionVector.magnitude);
         animator.SetBool(isMoving, enemyVision.CanSeePlayer);
-
-
 
     }
 
