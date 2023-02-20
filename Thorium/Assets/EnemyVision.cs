@@ -22,12 +22,26 @@ public class EnemyVision : MonoBehaviour
     private float moveSpeed;
 
     
+    [SerializeField]
+    public Vector2 RotationSide { get; set; }
+    
     public bool CanSeePlayer { get; set; }
 
     public Vector2 DirectionVector{ get; set; }
 
     private CircleCollider2D visionCollider;
     private SpriteRenderer spriteRenderer;
+
+    public enum ViewDirection
+    {
+        Up,
+        Down,
+        Right,
+        Left
+    };
+
+    [SerializeField]
+    private ViewDirection viewDirection;
 
     private void Awake()
     {
@@ -55,15 +69,30 @@ public class EnemyVision : MonoBehaviour
     {
         Vector2 point = transform.position;
         Collider2D[] rangeChecks = Physics2D.OverlapCircleAll(point, radius, targetMask);
-        
+
+        switch (viewDirection)
+        {
+            case ViewDirection.Up: RotationSide = Vector2.up; break;
+            case ViewDirection.Down: RotationSide = Vector2.down; break;
+            case ViewDirection.Left: RotationSide = Vector2.left; break;
+            case ViewDirection.Right: RotationSide = Vector2.right; break;
+        }
 
         if (rangeChecks.Length != 0)
         {
+            
             Transform target = rangeChecks[0].transform;
             Vector2 directionToTarget = (target.position - transform.position).normalized;
             DirectionVector = directionToTarget;
 
-            if (Vector2.Angle(transform.right, DirectionVector) < angle / 2)
+            //if guard has alredy seen you, he will follow you
+            if (CanSeePlayer)
+            {
+                return;
+            }
+
+
+            if (Vector2.Angle(RotationSide, DirectionVector) < angle / 2)
             {
                 float distanceToTarget = Vector2.Distance(transform.position, target.position);
 

@@ -36,7 +36,6 @@ public class Player : MonoBehaviour
 
        
         if (movement != Vector2.zero)
-        //if (movement.x != 0 && movement.y != 0)
         {
             animator.SetFloat(horizontal, movement.x);
             animator.SetFloat(vertical, movement.y);
@@ -61,16 +60,18 @@ public class Player : MonoBehaviour
 
        
         
-        //animator.SetBool(isMoving, moving);
+       
     }
 
     void FixedUpdate()
     {
         if (moving)
         {
-            //��������. � ������� ��������� 
             rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
-            //rb.AddForce(movement * moveSpeed * Time.fixedDeltaTime, ForceMode2D.Force);
+        }
+        else
+        {
+            StopMove();
         }
     }
 
@@ -94,5 +95,10 @@ public class Player : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D trigger)
     {
         if (trigger.gameObject.CompareTag("Throwing") && !throwingStone) GetStone(trigger.transform);
+    }
+
+    private void StopMove()
+    {
+        rb.velocity = Vector2.zero;
     }
 }
