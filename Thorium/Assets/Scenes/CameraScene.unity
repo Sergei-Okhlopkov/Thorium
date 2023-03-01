@@ -327,7 +327,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   moveSpeed: 4
-  viewDirection: 1
+  viewDirection: 2
 --- !u!114 &206983291
 MonoBehaviour:
   m_ObjectHideFlags: 0
