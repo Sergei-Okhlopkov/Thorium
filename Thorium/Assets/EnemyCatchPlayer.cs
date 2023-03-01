@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyCatchPlayer : MonoBehaviour
@@ -23,31 +21,30 @@ public class EnemyCatchPlayer : MonoBehaviour
         rotation = transform.Find("Rotation").transform;
     }
 
+    private void Start()
+    {
+        SetAnimatorRotation(enemyVision.RotationSide);
+    }
+
     // Update is called once per frame
     void Update()
     {
         if (enemyVision.CanSeePlayer)
         {
-            animator.SetFloat(horizontal, enemyVision.DirectionVector.x);
-            animator.SetFloat(vertical, enemyVision.DirectionVector.y);
-            animator.SetFloat(speed, enemyVision.DirectionVector.magnitude);
-            animator.SetBool(isMoving, enemyVision.CanSeePlayer);
+            SetAnimatorRotation(enemyVision.DirectionVector);
         }
         else
         {
             animator.SetFloat(speed, 0);
             animator.SetBool(isMoving, enemyVision.CanSeePlayer);
         }
-
     }
 
     void FixedUpdate()
     {
         if (enemyVision.CanSeePlayer)
         {
-
             rb.MovePosition(rb.position + enemyVision.DirectionVector * moveSpeed * Time.fixedDeltaTime);
-           
         }
         else
         {
@@ -60,5 +57,12 @@ public class EnemyCatchPlayer : MonoBehaviour
         rb.velocity = Vector2.zero;
     }
 
-   
+    private void SetAnimatorRotation(Vector2 rotationVector)
+    {
+        animator.SetFloat(horizontal, rotationVector.x);
+        animator.SetFloat(vertical, rotationVector.y);
+        animator.SetFloat(speed, rotationVector.magnitude);
+        animator.SetBool(isMoving, enemyVision.CanSeePlayer);
+    }
+
 }

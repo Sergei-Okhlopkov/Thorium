@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyVision : MonoBehaviour
@@ -17,10 +16,6 @@ public class EnemyVision : MonoBehaviour
 
     [SerializeField]
     private LayerMask obstaclesMask;
-
-    [SerializeField]
-    private float moveSpeed;
-
     
     [SerializeField]
     public Vector2 RotationSide { get; set; }
@@ -49,10 +44,6 @@ public class EnemyVision : MonoBehaviour
         visionCollider = gameObject.GetComponent<CircleCollider2D>();
         radius = visionCollider.radius;
         playerRef = GameObject.Find("Player");
-    }
-    private void Start()
-    {
-        StartCoroutine(FOVRoutine());
 
         switch (viewDirection)
         {
@@ -61,6 +52,10 @@ public class EnemyVision : MonoBehaviour
             case ViewDirection.Left: RotationSide = Vector2.left; break;
             case ViewDirection.Right: RotationSide = Vector2.right; break;
         }
+    }
+    private void Start()
+    {
+        StartCoroutine(FOVRoutine());
     }
 
     private IEnumerator FOVRoutine()
