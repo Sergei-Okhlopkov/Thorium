@@ -3688,6 +3688,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ThrowingStone
       objectReference: {fileID: 0}
+    - target: {fileID: 1204284029146812902, guid: a31d784060e5b4943b623287071dafa7, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a31d784060e5b4943b623287071dafa7, type: 3}
 --- !u!1 &2024651655
