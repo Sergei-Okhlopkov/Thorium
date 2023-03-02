@@ -5,7 +5,6 @@ public class EnemyCatchPlayer : MonoBehaviour
     private EnemyVision enemyVision;
     private float moveSpeed = 4f;
     private Rigidbody2D rb;
-    private Transform rotation;
     private Animator animator;
 
     private string horizontal = "Horizontal";
@@ -18,7 +17,6 @@ public class EnemyCatchPlayer : MonoBehaviour
         animator = transform.GetComponent<Animator>();
         enemyVision = transform.GetComponent<EnemyVision>();
         rb = gameObject.GetComponent<Rigidbody2D>();
-        rotation = transform.Find("Rotation").transform;
     }
 
     private void Start()
@@ -63,6 +61,17 @@ public class EnemyCatchPlayer : MonoBehaviour
         animator.SetFloat(vertical, rotationVector.y);
         animator.SetFloat(speed, rotationVector.magnitude);
         animator.SetBool(isMoving, enemyVision.CanSeePlayer);
+    }
+
+    private void OnCollisionEnter2D(Collision2D trigger)
+    {
+        if (!enemyVision.CanSeePlayer) return;
+
+        if (trigger.gameObject == enemyVision.playerRefObj)
+        {
+            enemyVision.playerRef.Respawn();
+            enemyVision.CanSeePlayer = false;
+        }
     }
 
 }

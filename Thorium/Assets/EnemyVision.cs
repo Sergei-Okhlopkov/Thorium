@@ -1,15 +1,19 @@
 using System.Collections;
 using UnityEngine;
 
-public class EnemyVision : MonoBehaviour
+public class EnemyVision : Unit
 {
-    private float radius;
+    [SerializeField]
+    private float radius = 5f;
 
     [SerializeField]
     [Range(0, 360)]
     private float angle;
 
-    private GameObject playerRef;
+    [HideInInspector]
+    public GameObject playerRefObj;
+    [HideInInspector]
+    public Player playerRef;
 
     [SerializeField]
     private LayerMask targetMask;
@@ -24,7 +28,6 @@ public class EnemyVision : MonoBehaviour
 
     public Vector2 DirectionVector{ get; set; }
 
-    private CircleCollider2D visionCollider;
     private SpriteRenderer spriteRenderer;
 
     public enum ViewDirection
@@ -41,9 +44,8 @@ public class EnemyVision : MonoBehaviour
     private void Awake()
     {
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
-        visionCollider = gameObject.GetComponent<CircleCollider2D>();
-        radius = visionCollider.radius;
-        playerRef = GameObject.Find("Player");
+        playerRefObj = GameObject.Find("Player");
+        playerRef = playerRefObj.GetComponent<Player>();
 
         switch (viewDirection)
         {
@@ -79,7 +81,7 @@ public class EnemyVision : MonoBehaviour
         {
             if (rangeChecks.Length == 0) // player has been escaped
             {
-                RotationSide = (playerRef.transform.position - transform.position).normalized;
+                RotationSide = (playerRefObj.transform.position - transform.position).normalized;
                 CanSeePlayer = false;
             }
             else
@@ -110,7 +112,7 @@ public class EnemyVision : MonoBehaviour
         {
             float distanceToTarget = Vector2.Distance(transform.position, target.position);
 
-            if (!Physics2D.Raycast(transform.position, DirectionVector, radius, obstaclesMask))
+            if (!Physics2D.Raycast(transform.position, DirectionVector, radius, obstaclesMask) && playerRef.isHiding == false)
             {
                 CanSeePlayer = true;
             } 

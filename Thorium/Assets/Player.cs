@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : Unit
 {
     [SerializeField]
     private float moveSpeed = 5f;
@@ -9,6 +9,8 @@ public class Player : MonoBehaviour
     private Vector2 movement;
     private bool moving;
     private GameObject throwingStone;
+    
+    public bool isHiding = false;
 
     #region Variables from Unity
 
@@ -21,6 +23,7 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
+        respawnPosition = transform.position;
         rb = gameObject.GetComponent<Rigidbody2D>();
         animator = gameObject.GetComponent<Animator>();
         throwingStone = transform.Find("ThrowingStone").gameObject;
@@ -95,10 +98,22 @@ public class Player : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D trigger)
     {
         if (trigger.gameObject.CompareTag("Throwing") && !throwingStone) GetStone(trigger.transform);
+        if (trigger.gameObject.CompareTag("Bush")) isHiding = true;
+    }
+
+    private void OnTriggerExit2D(Collider2D trigger)
+    {
+        if (trigger.gameObject.CompareTag("Bush")) isHiding = false;
     }
 
     private void StopMove()
     {
         rb.velocity = Vector2.zero;
+    }
+
+    public void Respawn()
+    {
+        transform.position = respawnPosition;
+        StopMove();
     }
 }
